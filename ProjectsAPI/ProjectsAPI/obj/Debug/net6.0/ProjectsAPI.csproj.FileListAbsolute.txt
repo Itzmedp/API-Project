@@ -7,6 +7,7 @@ C:\Users\nallaperumal.c\Work\Project\API-Project\ProjectsAPI\ProjectsAPI\bin\Deb
 C:\Users\nallaperumal.c\Work\Project\API-Project\ProjectsAPI\ProjectsAPI\bin\Debug\net6.0\ProjectsAPI.pdb
 C:\Users\nallaperumal.c\Work\Project\API-Project\ProjectsAPI\ProjectsAPI\bin\Debug\net6.0\AutoMapper.dll
 C:\Users\nallaperumal.c\Work\Project\API-Project\ProjectsAPI\ProjectsAPI\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\nallaperumal.c\Work\Project\API-Project\ProjectsAPI\ProjectsAPI\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\nallaperumal.c\Work\Project\API-Project\ProjectsAPI\ProjectsAPI\bin\Debug\net6.0\Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.dll
 C:\Users\nallaperumal.c\Work\Project\API-Project\ProjectsAPI\ProjectsAPI\bin\Debug\net6.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 C:\Users\nallaperumal.c\Work\Project\API-Project\ProjectsAPI\ProjectsAPI\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
@@ -25,7 +26,6 @@ C:\Users\nallaperumal.c\Work\Project\API-Project\ProjectsAPI\ProjectsAPI\bin\Deb
 C:\Users\nallaperumal.c\Work\Project\API-Project\ProjectsAPI\ProjectsAPI\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\nallaperumal.c\Work\Project\API-Project\ProjectsAPI\ProjectsAPI\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\nallaperumal.c\Work\Project\API-Project\ProjectsAPI\ProjectsAPI\bin\Debug\net6.0\Microsoft.OpenApi.dll
-C:\Users\nallaperumal.c\Work\Project\API-Project\ProjectsAPI\ProjectsAPI\bin\Debug\net6.0\Newtonsoft.Json.dll
 C:\Users\nallaperumal.c\Work\Project\API-Project\ProjectsAPI\ProjectsAPI\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\nallaperumal.c\Work\Project\API-Project\ProjectsAPI\ProjectsAPI\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\nallaperumal.c\Work\Project\API-Project\ProjectsAPI\ProjectsAPI\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll

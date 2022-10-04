@@ -27,11 +27,11 @@ namespace ProjectAPI.Data.Models
             }
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder builder)
         {
-            base.OnModelCreating(modelBuilder);
+            base.OnModelCreating(builder);
 
-            modelBuilder.Entity<Registration>(entity =>
+            builder.Entity<Registration>(entity =>
             {
                 entity.HasKey(e => e.UserId);
 
@@ -69,7 +69,7 @@ namespace ProjectAPI.Data.Models
                     .HasColumnName("status");
             });
 
-            modelBuilder.Entity<Role>(entity =>
+            builder.Entity<Role>(entity =>
             {
                 entity.HasNoKey();
 
@@ -86,7 +86,7 @@ namespace ProjectAPI.Data.Models
                     .HasConstraintName("FK_Roles_Registration");
             });
 
-            OnModelCreatingPartial(modelBuilder);
+            OnModelCreatingPartial(builder);
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
