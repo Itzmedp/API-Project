@@ -40,19 +40,18 @@ namespace ProjectsAPI.Controllers
                 }
                 UserModel userModel = new UserModel();
                 userModel.UserName = registerModel.FirstName + "" + registerModel.LastName;
+                userModel.Email = registerModel.Email;
 
                 var result = await userManager.CreateAsync(userModel, registerModel.Password);
                 if (result.Succeeded)
                 {
                     await userService.Register(registerModel);
-                    return Ok();
+                    return Ok("Register Sucessfully");
                 }
                 else
                 {
                     return BadRequest();
                 }
-
-
 
             }
             catch (Exception e)
