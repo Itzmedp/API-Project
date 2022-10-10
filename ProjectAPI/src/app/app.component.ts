@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AccountService } from './shared/account.service';
+import { User } from './shared/register-details';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'ProjectAPI';
+  user: User = new User;
+
+  constructor(private accountService: AccountService) {
+    this.accountService.user.subscribe((x: User) => this.user = x);
+}
+
+logout() {
+    this.accountService.logout();
+}
 }
