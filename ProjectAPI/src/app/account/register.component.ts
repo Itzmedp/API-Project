@@ -27,7 +27,7 @@ export class RegisterComponent implements OnInit {
             address:['',Validators.required],
             role:['',Validators.required],
             status: ['', Validators.required],
-            password: ['', [Validators.required, Validators.minLength(6)]]
+            password: ['', Validators.required]
         });
     }
 
@@ -58,5 +58,6 @@ export class RegisterComponent implements OnInit {
                     this.loading = false;
                 }
             });
+            
     }
 }

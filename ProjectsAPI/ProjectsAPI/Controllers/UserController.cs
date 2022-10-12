@@ -11,7 +11,7 @@ using System.Text;
 
 namespace ProjectsAPI.Controllers
 {
-    [Route("api/[controller]/[action]")]
+    [Route("[controller]/[action]")]
     [ApiController]
     public class UserController : ControllerBase
     {

@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 
 import { environment } from '@environments/environment';
 import { User } from '@app/_models';
+import { formatCurrency } from '@angular/common';
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
@@ -46,15 +47,15 @@ export class AccountService {
     }
 
     getAll() {
-        return this.http.get<User[]>(`${environment.apiUrl}/User`);
+        return this.http.get<User[]>(`${environment.apiUrl}/users`);
     }
 
     getById(id: string) {
-        return this.http.get<User>(`${environment.apiUrl}/User/${id}`);
+        return this.http.get<User>(`${environment.apiUrl}/users/${id}`);
     }
 
     update(id, params) {
-        return this.http.put(`${environment.apiUrl}/User/${id}`, params)
+        return this.http.put(`${environment.apiUrl}/users/${id}`, params)
             .pipe(map(x => {
                 // update stored user if the logged in user updated their own record
                 if (id == this.userValue.id) {
@@ -70,7 +71,7 @@ export class AccountService {
     }
 
     delete(id: string) {
-        return this.http.delete(`${environment.apiUrl}/User/${id}`)
+        return this.http.delete(`${environment.apiUrl}/users/${id}`)
             .pipe(map(x => {
                 // auto logout if the logged in user deleted their own record
                 if (id == this.userValue.id) {
