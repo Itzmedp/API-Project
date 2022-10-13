@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +14,7 @@ namespace ProjectsAPI.Controllers
 {
     [Route("[controller]/[action]")]
     [ApiController]
+    [EnableCors("NgOrigins")]   
     public class UserController : ControllerBase
     {
         private readonly IConfiguration configuration;
@@ -113,6 +115,13 @@ namespace ProjectsAPI.Controllers
             else
                 return BadRequest(ModelState);
 
+        }
+
+        [HttpGet]
+        public Task<IActionResult> Get()
+        {
+            // Method intentionally left empty.
+            return ("Get");
         }
     }
 }
