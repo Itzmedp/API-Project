@@ -1,20 +1,22 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using ProjectAPI.Business.Models;
+using ProjectAPI.Data.EFModels;
+using ProjectAPI.Models;
 using ProjectsAPI.Models;
 using ProjectsAPI.Services;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
+
 namespace ProjectsAPI.Controllers
 {
-    [Route("[controller]/[action]")]
     [ApiController]
-    [EnableCors("NgOrigins")]   
+    [EnableCors("NgOrigins")]
     public class UserController : ControllerBase
     {
         private readonly IConfiguration configuration;
@@ -22,9 +24,9 @@ namespace ProjectsAPI.Controllers
         public readonly IUserService userService;
         public readonly UserManager<IdentityUser> userManager;
         public readonly IMapper mapper;
-    
 
-        public UserController(IConfiguration configuration, IUserService UserService,IMapper _mapper, UserManager<IdentityUser> userManager)
+
+        public UserController(IConfiguration configuration, IUserService UserService, IMapper _mapper, UserManager<IdentityUser> userManager)
         {
             this.configuration = configuration;
             mapper = _mapper;
@@ -32,6 +34,7 @@ namespace ProjectsAPI.Controllers
             userService = UserService;
         }
         [HttpPost]
+        [Route("[controller]/[action]")]
         public async Task<IActionResult> Register(RegisterModel registerModel)
         {
             try
@@ -63,7 +66,7 @@ namespace ProjectsAPI.Controllers
         }
 
         [HttpPost]
-
+        [Route("[controller]/[action]")]
         public async Task<IActionResult> Login(LoginModel loginModel)
         {
             if (ModelState.IsValid)
@@ -117,11 +120,98 @@ namespace ProjectsAPI.Controllers
 
         }
 
-        [HttpGet]
-        public Task<IActionResult> Get()
+        [HttpPost]
+        [Route("[controller]/[action]")]
+        public async Task<ActionResult> UpdateUser(int UserId, UserDto userDto)
         {
-            // Method intentionally left empty.
-            return ("Get");
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var user = await userManager.FindByEmailAsync(userDto.Email);
+                    if (user == null)
+                        return BadRequest();
+                    else
+                    {
+                        UserModel userModel = new UserModel();
+                        userModel.UserName = userDto.Email;
+                        userModel.Email = userDto.Email;
+                        var users = await userManager.UpdateAsync(userModel);
+
+                        var updateUser = await userService.UpdateUser(UserId, userDto);
+                        if (updateUser != null)
+                        {
+                            if (updateUser.StatusCode == StatusCodes.Status200OK)
+                            {
+
+                                return Ok(updateUser);
+
+                            }
+                            else
+                                return BadRequest(updateUser);
+                        }
+                        else
+                            return BadRequest(updateUser);
+                    }
+                }
+                else
+                    return BadRequest();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new ResponseModel { StatusCode = StatusCodes.Status500InternalServerError, Message = e.Message });
+            }
         }
+
+        [HttpDelete]
+        [Route("[controller]/[action]")]
+        public async Task<ActionResult> DeleteUser(int UserId)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var deleteUser = await userService.DeleteUser(UserId);
+                    if (deleteUser != null)
+                    {
+                        if (deleteUser.StatusCode == StatusCodes.Status200OK)
+                            return Ok(deleteUser);
+                        else
+                            return BadRequest(deleteUser);
+                    }
+                    else
+                        return BadRequest(deleteUser);
+                }
+                else
+                    return BadRequest();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new ResponseModel { StatusCode = StatusCodes.Status500InternalServerError, Message = e.Message });
+            }
+        }
+
+        [HttpGet]
+        [Route("[controller]/[action]")]
+        public async Task<ActionResult<Registration>> GetUser()
+        {
+            try
+            {
+                return Ok(await userService.GetUser());
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new ResponseModel { StatusCode = StatusCodes.Status500InternalServerError, Message = e.Message });
+            }
+        }
+
+        [HttpGet]
+        [Route("[controller]/[action]/id")]
+        public async Task<ActionResult<Registration>> GetByIdUser(int UserId)
+        {
+            var data = await userService.GetUser(UserId);
+            return Ok(data);
+        }
+
     }
 }
