@@ -1,5 +1,14 @@
+C:\Users\nallaperumal.c\Work\Project\API-Project\ProjectsAPI\ProjectAPI.Data\bin\Debug\net6.0\ProjectAPI.Data.deps.json
+C:\Users\nallaperumal.c\Work\Project\API-Project\ProjectsAPI\ProjectAPI.Data\bin\Debug\net6.0\ProjectAPI.Data.runtimeconfig.json
+C:\Users\nallaperumal.c\Work\Project\API-Project\ProjectsAPI\ProjectAPI.Data\bin\Debug\net6.0\ProjectAPI.Data.dll
+C:\Users\nallaperumal.c\Work\Project\API-Project\ProjectsAPI\ProjectAPI.Data\bin\Debug\net6.0\ProjectAPI.Data.pdb
 C:\Users\nallaperumal.c\Work\Project\API-Project\ProjectsAPI\ProjectAPI.Data\obj\Debug\net6.0\ProjectAPI.Data.csproj.AssemblyReference.cache
 C:\Users\nallaperumal.c\Work\Project\API-Project\ProjectsAPI\ProjectAPI.Data\obj\Debug\net6.0\ProjectAPI.Data.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\nallaperumal.c\Work\Project\API-Project\ProjectsAPI\ProjectAPI.Data\obj\Debug\net6.0\ProjectAPI.Data.AssemblyInfoInputs.cache
 C:\Users\nallaperumal.c\Work\Project\API-Project\ProjectsAPI\ProjectAPI.Data\obj\Debug\net6.0\ProjectAPI.Data.AssemblyInfo.cs
 C:\Users\nallaperumal.c\Work\Project\API-Project\ProjectsAPI\ProjectAPI.Data\obj\Debug\net6.0\ProjectAPI.Data.csproj.CoreCompileInputs.cache
+C:\Users\nallaperumal.c\Work\Project\API-Project\ProjectsAPI\ProjectAPI.Data\obj\Debug\net6.0\ProjectAPI.Data.dll
+C:\Users\nallaperumal.c\Work\Project\API-Project\ProjectsAPI\ProjectAPI.Data\obj\Debug\net6.0\refint\ProjectAPI.Data.dll
+C:\Users\nallaperumal.c\Work\Project\API-Project\ProjectsAPI\ProjectAPI.Data\obj\Debug\net6.0\ProjectAPI.Data.pdb
+C:\Users\nallaperumal.c\Work\Project\API-Project\ProjectsAPI\ProjectAPI.Data\obj\Debug\net6.0\ProjectAPI.Data.genruntimeconfig.cache
+C:\Users\nallaperumal.c\Work\Project\API-Project\ProjectsAPI\ProjectAPI.Data\obj\Debug\net6.0\ref\ProjectAPI.Data.dll

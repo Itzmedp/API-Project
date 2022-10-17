@@ -9,15 +9,6 @@ using Microsoft.AspNetCore.Identity;
 
 namespace ProjectsAPI.Services
 {
-    public interface IUserService
-    {
-        Task<Registration> Register(RegisterModel registerModel);
-        Task<ResponseModel> UpdateUser(int userId, UserDto userDto);
-        Task<ResponseModel> DeleteUser(int userId);
-        Task<IEnumerable<Registration>> GetUser();
-        Task<Registration> GetUser(int UserId);
-    }
-
     public class UserService : IUserService
     {
         private readonly UserDbContext dbContext;
@@ -28,7 +19,7 @@ namespace ProjectsAPI.Services
             configuration = configuration;
         }
 
-        public async Task<Registration> Register(RegisterModel registerModel)
+        public async Task<ResponseModel> Register(RegisterModel registerModel, string role)
         {
             Registration registration = new Registration();
 
@@ -36,24 +27,29 @@ namespace ProjectsAPI.Services
             {
                 registration.FirstName = registerModel.FirstName;
                 registration.LastName = registerModel.LastName;
+                registration.Email = registerModel.Email;
                 registration.Address = registerModel.Address;
-                registration.Role = registerModel.Role;
                 registration.Status = true;
-                registration.Password = registerModel.Password;
+                var roleID = await dbContext.Roles.Where(x => x.Role == role).FirstOrDefaultAsync();
+                if (roleID != null)
+                    registration.RoleId = roleID.RoleId;
+                else
+                    return new ResponseModel { StatusCode = StatusCodes.Status400BadRequest, Message = "Incorrect role" };
 
                 await dbContext.SaveChangesAsync();
                 await dbContext.Registration.AddAsync(registration);
-                return registration;
+                return new ResponseModel { StatusCode = StatusCodes.Status200OK, Message = "Success" };
             }
-            catch (Exception e)
+            catch (Exception Handler)
             {
-                return registration;
+                return new ResponseModel { StatusCode = StatusCodes.Status500InternalServerError, Message = Handler.Message };
             }
+        }
         }
 
         public async Task<ResponseModel> UpdateUser(int userId, UserDto userDto)
         {
-            Registration user = new Registration();
+            Registration registration = new Registration();
             try
             {
                 var User_data = await dbContext.Registration.Where(x => x.UserId == userId).FirstOrDefaultAsync();
@@ -63,9 +59,9 @@ namespace ProjectsAPI.Services
                     User_data.LastName = userDto.LastName;
                     User_data.Email = userDto.Email;
                     User_data.Address = userDto.Address;
-                    var role = await dbContext.Roles.Where(x => x.Roles == userDto.Role).FirstOrDefaultAsync();
+                    var role = await dbContext.Roles.Where(x => x.Role == userDto.Role).FirstOrDefaultAsync();
                     if (role != null)
-                        User_data.Role = role.Roles;
+                        User_data.RoleId = role.RoleId;
                     else
                         return new ResponseModel { StatusCode = StatusCodes.Status400BadRequest, Message = "Incorrect Role" };
                     dbContext.Entry(User_data).State = EntityState.Modified;

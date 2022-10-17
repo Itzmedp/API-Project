@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using ProjectAPI.Business;
 using ProjectAPI.Business.Models;
 using ProjectAPI.Business.Services.RoleService;
 using ProjectAPI.Data.EFModels;
@@ -12,7 +13,6 @@ using System.Security.Claims;
 namespace ProjectAPI.Controllers
 {
     [ApiController]
-    [Route("Role")]
     public class RoleController : ControllerBase
     {
         public readonly IRoleService RoleService;
@@ -33,12 +33,12 @@ namespace ProjectAPI.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var role = await dbContext.Roles.Where(x => x.Roles == Enumeration.Admin.ToString()).FirstOrDefaultAsync();
+                    var role = await dbContext.Roles.Where(x => x.Role == Enumeration.Admin.ToString()).FirstOrDefaultAsync();
                     if (role == null)
                         return BadRequest("Admin role not found");
                     var loginUser = User.FindFirstValue(ClaimTypes.Name);
-                    var userRole = await dbContext.Registration.Where(x => x.Role == role.RoleId).FirstOrDefaultAsync();
-                    var roleCheck = await dbContext.Roles.Where(x => x.Roles == roleModel.Roles).FirstOrDefaultAsync();
+                    var userRole = await dbContext.Registration.Where(x => x.RoleId == role.RoleId).FirstOrDefaultAsync();
+                    var roleCheck = await dbContext.Roles.Where(x => x.Role == roleModel.Roles).FirstOrDefaultAsync();
                     if (roleCheck != null)
                     {
                         RolesModel rolesModel = new RolesModel();
@@ -77,11 +77,11 @@ namespace ProjectAPI.Controllers
                     RolesModel rolesModel = new RolesModel();
                     if (role_data != null)
                     {
-                        var role = await dbContext.Roles.Where(x => x.Roles == Enumeration.Admin.ToString()).FirstOrDefaultAsync();
+                        var role = await dbContext.Roles.Where(x => x.Role == Enumeration.Admin.ToString()).FirstOrDefaultAsync();
                         if (role == null)
                             return BadRequest("Admin role not found");
                         var loginUser = User.FindFirstValue(ClaimTypes.Name);
-                        var userRole = await dbContext.Registration.Where(x => x.Role == role.RoleId).FirstOrDefaultAsync();
+                        var userRole = await dbContext.Registration.Where(x => x.RoleId == role.RoleId).FirstOrDefaultAsync();
                         rolesModel.Name = updateRoleModel.Roles;
                         var updatRole = await roleManager.UpdateAsync(rolesModel);
                         if (role_data.StatusCode == StatusCodes.Status200OK)
@@ -109,15 +109,15 @@ namespace ProjectAPI.Controllers
 
         [HttpGet]
         [Route("[controller]/[action]")]
-        public async Task<ActionResult<Role>> GetRole()
+        public async Task<ActionResult<Roles>> GetRole()
         {
             try
             {
-                var role = await dbContext.Roles.Where(x => x.Roles == Enumeration.Admin.ToString()).FirstOrDefaultAsync();
+                var role = await dbContext.Roles.Where(x => x.Role == Enumeration.Admin.ToString()).FirstOrDefaultAsync();
                 if (role == null)
                     return BadRequest("Admin role not found");
                 var loginUser = User.FindFirstValue(ClaimTypes.Name);
-                var userRole = await dbContext.Registration.Where(x => x.Role == role.RoleId).FirstOrDefaultAsync();
+                var userRole = await dbContext.Registration.Where(x => x.RoleId == role.RoleId).FirstOrDefaultAsync();
                 if (userRole != null)
                     return Ok(await RoleService.GetRole());
                 else
@@ -135,11 +135,11 @@ namespace ProjectAPI.Controllers
             var data = await RoleService.GetRoleById(UserId);
             if (data != null)
             {
-                var role = await dbContext.Roles.Where(x => x.Roles == Enumeration.Admin.ToString()).FirstOrDefaultAsync();
+                var role = await dbContext.Roles.Where(x => x.Role == Enumeration.Admin.ToString()).FirstOrDefaultAsync();
                 if (role == null)
                     return BadRequest("Admin role not found");
                 var loginUser = User.FindFirstValue(ClaimTypes.Name);
-                var userRole = await dbContext.Registration.Where(x => x.Role == role.RoleId).FirstOrDefaultAsync();
+                var userRole = await dbContext.Registration.Where(x => x.RoleId == role.RoleId).FirstOrDefaultAsync();
                 if (userRole != null)
                     return Ok(data);
                 else

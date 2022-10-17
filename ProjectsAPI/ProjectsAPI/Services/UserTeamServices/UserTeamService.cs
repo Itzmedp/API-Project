@@ -29,15 +29,15 @@ namespace ProjectAPI.Services.UserTeamServices
             UserTeam team = new UserTeam();
             try
             {
-                if (await dbContext.UserTeams.Where(x => x.AssignedUser == userTeamModel.AssignedUser).FirstOrDefaultAsync() == null)
+                if (await dbContext.UserTeam.Where(x => x.AssignedUser == userTeamModel.AssignedUser).FirstOrDefaultAsync() == null)
                 {
                     team.AssignedUser = userTeamModel.AssignedUser;
                     team.Status = true;
-                    var userId = await dbContext.Users.Where(x => x.Email == userTeamModel.UserName).FirstOrDefaultAsync();
-                    var teamtype = await dbContext.TeamTypes.Where(x => x.TeamType1 == userTeamModel.TeamType).FirstOrDefaultAsync();
+                    var userId = await dbContext.Registration.Where(x => x.Email == userTeamModel.UserName).FirstOrDefaultAsync();
+                    var teamtype = await dbContext.TeamType.Where(x => x.TeamType1 == userTeamModel.TeamType).FirstOrDefaultAsync();
                     team.UserId = userId.UserId;
                     team.TeamTypeId = teamtype.TeamTypeId;
-                    await dbContext.UserTeams.AddAsync(team);
+                    await dbContext.UserTeam.AddAsync(team);
                     await dbContext.SaveChangesAsync();
                     return new ResponseModel { StatusCode = StatusCodes.Status200OK, Message = "Success" };
                 }

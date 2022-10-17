@@ -25,11 +25,11 @@ namespace ProjectAPI.Services.TeamTypeService
             try
             {
                 //var team_data = await dbContext.TeamTypes.Where(x => x.TeamType1 == teamTypeModel.TeamType).FirstOrDefaultAsync();
-                if (await dbContext.TeamTypes.Where(x => x.TeamType1 == teamTypeModel.TeamType).FirstOrDefaultAsync() == null)
+                if (await dbContext.TeamType.Where(x => x.TeamType1 == teamTypeModel.TeamType).FirstOrDefaultAsync() == null)
                 {
                     teamType.Status = true;
                     teamType.TeamType1 = teamTypeModel.TeamType;
-                    await dbContext.TeamTypes.AddAsync(teamType);
+                    await dbContext.TeamType.AddAsync(teamType);
                     await dbContext.SaveChangesAsync();
                     return new ResponseModel { StatusCode = StatusCodes.Status200OK, Message = "Success" };
                 }
@@ -46,7 +46,7 @@ namespace ProjectAPI.Services.TeamTypeService
           TeamType team = new TeamType();
             try
             {
-                var team_data = await dbContext.TeamTypes.Where(x => x.TeamTypeId == TeamTypeId).FirstOrDefaultAsync();
+                var team_data = await dbContext.TeamType.Where(x => x.TeamTypeId == TeamTypeId).FirstOrDefaultAsync();
                 if (team_data != null)
                 {
                     team_data.TeamType1 = teamTypeModel.TeamType;
@@ -70,7 +70,7 @@ namespace ProjectAPI.Services.TeamTypeService
             TeamType teamType = new TeamType();
             try
             {
-                var team_data = await dbContext.TeamTypes.Where(x => x.TeamTypeId == TeamTypeId).FirstOrDefaultAsync();
+                var team_data = await dbContext.TeamType.Where(x => x.TeamTypeId == TeamTypeId).FirstOrDefaultAsync();
                 if (team_data != null)
                 {
                     team_data.Status = false;
@@ -88,12 +88,12 @@ namespace ProjectAPI.Services.TeamTypeService
         }
         public async Task<IEnumerable<TeamType>> GetTeamType()
         {
-            var data = await dbContext.TeamTypes.Where(x => x.Status == true).ToListAsync();
+            var data = await dbContext.TeamType.Where(x => x.Status == true).ToListAsync();
             return data;
         }
         public async Task<TeamType> GetTeamType(int teamId)
         {
-            var data = await dbContext.TeamTypes.Where(x => x.TeamTypeId == teamId).FirstOrDefaultAsync();
+            var data = await dbContext.TeamType.Where(x => x.TeamTypeId == teamId).FirstOrDefaultAsync();
             return data;
         }
 

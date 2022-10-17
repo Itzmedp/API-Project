@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using ProjectAPI.Business;
 using ProjectAPI.Business.Models;
 using ProjectAPI.Data.Models;
 using ProjectAPI.Models;
@@ -35,11 +36,11 @@ namespace ProjectAPI.Controllers
                     {
                         if (addType.StatusCode == StatusCodes.Status200OK)
                         {
-                            var role = await dbContext.Roles.Where(x => x.Roles == Enumeration.Admin.ToString()).FirstOrDefaultAsync();
+                            var role = await dbContext.Roles.Where(x => x.Role == Enumeration.Admin.ToString()).FirstOrDefaultAsync();
                             if (role == null)
                                 return BadRequest("Admin role not found");
                             var loginUser = User.FindFirstValue(ClaimTypes.Name);
-                            var userRole = await dbContext.Registration.Where(x => x.Role == role.RoleId).FirstOrDefaultAsync();
+                            var userRole = await dbContext.Registration.Where(x => x.RoleId == role.RoleId).FirstOrDefaultAsync();
                             if (userRole != null)
                                 return Ok(addType);
                             else

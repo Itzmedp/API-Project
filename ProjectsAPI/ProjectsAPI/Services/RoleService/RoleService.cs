@@ -21,16 +21,16 @@ namespace ProjectAPI.Business.Services.RoleService
         {
             this.dbContext = _dbContext;
         }
-        public async Task<Role> AddRole(RoleModel roleModel)
+        public async Task<Roles> AddRole(RoleModel roleModel)
         {
-            Role role = new Role();
+            Roles role = new Roles();
             try
             {
-                var roles = await dbContext.Roles.Where(x => x.Roles == roleModel.Roles).FirstOrDefaultAsync();
+                var roles = await dbContext.Roles.Where(x => x.Role == roleModel.Roles).FirstOrDefaultAsync();
                 if(roles == null)
                 {
                     role.Status = true;
-                    role.Roles = roleModel.Roles;
+                    role.Role = roleModel.Roles;
                     await dbContext.Roles.AddAsync(role);
                     await dbContext.SaveChangesAsync();
                     return role;
@@ -48,14 +48,14 @@ namespace ProjectAPI.Business.Services.RoleService
         }
         public async Task<ResponseModel> UpdateRole(int roleId, UpdateRoleModel updateRoleModel)
         {
-            Role role = new Role();
+            Roles role = new Roles();
 
             try
             {
                 var role_data = await dbContext.Roles.Where(x => x.RoleId == roleId).FirstOrDefaultAsync();
                 if (role_data != null)
                 {
-                    role_data.Roles = updateRoleModel.Roles;
+                    role_data.Role = updateRoleModel.Roles;
                     role_data.Status = updateRoleModel.Status;
                     dbContext.Entry(role_data).State = EntityState.Modified;
                     await dbContext.SaveChangesAsync();
@@ -71,13 +71,13 @@ namespace ProjectAPI.Business.Services.RoleService
 
             }
         }
-        public async Task<IEnumerable<Role>> GetRole()
+        public async Task<IEnumerable<Roles>> GetRole()
         {  
 
             var Roles = await dbContext.Roles.Where(x => x.Status == true).ToListAsync();
             return Roles;
         }
-        public async Task<Role> GetRoleById(int roleId)
+        public async Task<Roles> GetRoleById(int roleId)
         {
 
             var RoleId = await dbContext.Roles.Where(x => x.RoleId == roleId).FirstOrDefaultAsync();

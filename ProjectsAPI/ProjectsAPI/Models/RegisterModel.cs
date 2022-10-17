@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using ProjectAPI.Data.EFModels;
 
 namespace ProjectsAPI.Models
 {
@@ -11,5 +12,6 @@ namespace ProjectsAPI.Models
         public string? Role { get; set; }
         public string? Status { get; set; }
         public string? Password { get; set; }
+        public Roles RoleId { get; internal set; }
     }
 }
