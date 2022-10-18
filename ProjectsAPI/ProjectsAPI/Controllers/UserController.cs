@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using ProjectAPI.Business;
 using ProjectAPI.Business.Models;
 using ProjectAPI.Data.EFModels;
 using ProjectAPI.Models;
@@ -50,8 +51,12 @@ namespace ProjectsAPI.Controllers
                 var result = await userManager.CreateAsync(userModel, registerModel.Password);
                 if (result.Succeeded)
                 {
-                    await userService.Register(registerModel);
-                    return Ok("Register Sucessfully");
+                    var register = await userService.Register(registerModel, Enumeration.User.ToString());
+                    if(register.StatusCode == StatusCodes.Status200OK)
+                        return Ok(register);
+                    else
+                        return BadRequest(register);
+
                 }
                 else
                 {

@@ -13,10 +13,9 @@ namespace ProjectsAPI.Services
     {
         private readonly UserDbContext dbContext;
 
-        public UserService(UserDbContext _dbContext, IConfiguration configuration)
+        public UserService(UserDbContext _dbContext)
         {
             this.dbContext = _dbContext;
-            configuration = configuration;
         }
 
         public async Task<ResponseModel> Register(RegisterModel registerModel, string role)
@@ -45,7 +44,43 @@ namespace ProjectsAPI.Services
                 return new ResponseModel { StatusCode = StatusCodes.Status500InternalServerError, Message = Handler.Message };
             }
         }
+
+        public async Task<ResponseModel> DeleteUser(int userId)
+        {
+            Registration user = new Registration();
+            try
+            {
+                var userData = await dbContext.Registration.Where(x => x.UserId == userId).FirstOrDefaultAsync();
+                if (userData != null)
+                {
+                    userData.Status = false;
+                    dbContext.Entry(userData).State = EntityState.Modified;
+                    await dbContext.SaveChangesAsync();
+                    return new ResponseModel { StatusCode = StatusCodes.Status200OK, Message = "Deleted successfully" };
+                }
+                else
+                    return new ResponseModel { StatusCode = StatusCodes.Status400BadRequest, Message = "No such user found" };
+            }
+            catch (Exception handler)
+            {
+                return new ResponseModel { StatusCode = StatusCodes.Status500InternalServerError, Message = handler.Message };
+            }
         }
+
+        public async Task<IEnumerable<Registration>> GetUser()
+        {
+            var data = await dbContext.Registration.Where(x => x.Status == true).ToListAsync();
+            return data;
+        }
+
+        public async Task<Registration> GetUser(int UserId)
+        {
+            var data = await dbContext.Registration.Where(x => x.UserId == UserId).FirstOrDefaultAsync();
+
+            return data;
+        }
+
+
 
         public async Task<ResponseModel> UpdateUser(int userId, UserDto userDto)
         {
@@ -75,38 +110,7 @@ namespace ProjectsAPI.Services
                 return new ResponseModel { StatusCode = StatusCodes.Status500InternalServerError, Message = handler.Message };
             }
         }
-        public async Task<ResponseModel> DeleteUser(int userId)
-        {
-            Registration user = new Registration();
-            try
-            {
-                var userData = await dbContext.Registration.Where(x => x.UserId == userId).FirstOrDefaultAsync();
-                if (userData != null)
-                {
-                    userData.Status = false;
-                    dbContext.Entry(userData).State = EntityState.Modified;
-                    await dbContext.SaveChangesAsync();
-                    return new ResponseModel { StatusCode = StatusCodes.Status200OK, Message = "Deleted successfully" };
-                }
-                else
-                    return new ResponseModel { StatusCode = StatusCodes.Status400BadRequest, Message = "No such user found" };
-            }
-            catch (Exception handler)
-            {
-                return new ResponseModel { StatusCode = StatusCodes.Status500InternalServerError, Message = handler.Message };
-            }
-        }
-        public async Task<IEnumerable<Registration>> GetUser()
-        {
-            var data = await dbContext.Registration.Where(x => x.Status == true).ToListAsync();
-            return data;
-        }
-        public async Task<Registration> GetUser(int UserId)
-        {
-            var data = await dbContext.Registration.Where(x => x.UserId == UserId).FirstOrDefaultAsync();
+    }
 
-            return data;
-        }
 
     }
-}
