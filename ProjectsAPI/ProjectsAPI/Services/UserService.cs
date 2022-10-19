@@ -35,8 +35,8 @@ namespace ProjectsAPI.Services
                 else
                     return new ResponseModel { StatusCode = StatusCodes.Status400BadRequest, Message = "Incorrect role" };
 
-                await dbContext.SaveChangesAsync();
                 await dbContext.Registration.AddAsync(registration);
+                await dbContext.SaveChangesAsync();
                 return new ResponseModel { StatusCode = StatusCodes.Status200OK, Message = "Success" };
             }
             catch (Exception Handler)

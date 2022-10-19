@@ -60,7 +60,7 @@ namespace ProjectsAPI.Controllers
                 }
                 else
                 {
-                    return BadRequest();
+                    return BadRequest(result.Errors);
                 }
 
             }

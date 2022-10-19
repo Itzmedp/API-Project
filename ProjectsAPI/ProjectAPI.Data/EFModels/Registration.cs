@@ -21,7 +21,6 @@ namespace ProjectAPI.Data.EFModels
         public string Address { get; set; }
         public int RoleId { get; set; }
         public bool Status { get; set; }
-        public string Password { get; set; }
 
         public virtual Roles Role { get; set; }
         public virtual ICollection<UserDetail> UserDetail { get; set; }

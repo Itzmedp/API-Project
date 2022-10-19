@@ -21,6 +21,7 @@ namespace ProjectAPI.Data.Models
         {
         }
 
+
         public virtual DbSet<Registration> Registration { get; set; }
         public virtual DbSet<Roles> Roles { get; set; }
         public virtual DbSet<TeamType> TeamType { get; set; }
@@ -69,19 +70,9 @@ namespace ProjectAPI.Data.Models
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Password)
-                    .IsRequired()
-                    .HasColumnName("password")
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
                 entity.Property(e => e.RoleId).HasColumnName("roleId");
 
-                entity.Property(e => e.Status)
-                    .IsRequired()
-                    .HasColumnName("status")
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                entity.Property(e => e.Status).HasColumnName("status");
 
                 entity.HasOne(d => d.Role)
                     .WithMany(p => p.Registration)
@@ -109,7 +100,6 @@ namespace ProjectAPI.Data.Models
 
             modelBuilder.Entity<TeamType>(entity =>
             {
-                entity.HasKey(e => e.TeamTypeId);
                 entity.Property(e => e.TeamTypeId).HasColumnName("Team_Type_Id");
 
                 entity.Property(e => e.TeamType1)
@@ -120,7 +110,6 @@ namespace ProjectAPI.Data.Models
 
             modelBuilder.Entity<UserDetail>(entity =>
             {
-                entity.HasKey(e => e.UserDetailId);
                 entity.Property(e => e.UserDetailId).HasColumnName("User_Detail_Id");
 
                 entity.Property(e => e.CurrentOrganizationName)
@@ -152,7 +141,6 @@ namespace ProjectAPI.Data.Models
 
             modelBuilder.Entity<UserTeam>(entity =>
             {
-                entity.HasKey(e => e.UserTeamId);
                 entity.Property(e => e.UserTeamId)
                     .HasColumnName("User_Team_Id")
                     .ValueGeneratedNever();

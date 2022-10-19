@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\nallaperumal.c\\Work\\Project\\API-Project\\ProjectsAPI\\ProjectAPI.Data\\ProjectAPI.Data.csproj": {}
+    "D:\\Work\\Project\\API-Project\\ProjectsAPI\\ProjectAPI.Data\\ProjectAPI.Data.csproj": {}
   },
   "projects": {
-    "C:\\Users\\nallaperumal.c\\Work\\Project\\API-Project\\ProjectsAPI\\ProjectAPI.Data\\ProjectAPI.Data.csproj": {
+    "D:\\Work\\Project\\API-Project\\ProjectsAPI\\ProjectAPI.Data\\ProjectAPI.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\nallaperumal.c\\Work\\Project\\API-Project\\ProjectsAPI\\ProjectAPI.Data\\ProjectAPI.Data.csproj",
+        "projectUniqueName": "D:\\Work\\Project\\API-Project\\ProjectsAPI\\ProjectAPI.Data\\ProjectAPI.Data.csproj",
         "projectName": "ProjectAPI.Data",
-        "projectPath": "C:\\Users\\nallaperumal.c\\Work\\Project\\API-Project\\ProjectsAPI\\ProjectAPI.Data\\ProjectAPI.Data.csproj",
+        "projectPath": "D:\\Work\\Project\\API-Project\\ProjectsAPI\\ProjectAPI.Data\\ProjectAPI.Data.csproj",
         "packagesPath": "C:\\Users\\nallaperumal.c\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\nallaperumal.c\\Work\\Project\\API-Project\\ProjectsAPI\\ProjectAPI.Data\\obj\\",
+        "outputPath": "D:\\Work\\Project\\API-Project\\ProjectsAPI\\ProjectAPI.Data\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
