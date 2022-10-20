@@ -67,17 +67,44 @@ namespace ProjectsAPI.Services
             }
         }
 
-        public async Task<IEnumerable<Registration>> GetUser()
+        public async Task<IEnumerable<UserResponseModel>> GetUser()
         {
+            List<UserResponseModel> userResponseModel = new List<UserResponseModel>();
             var data = await dbContext.Registration.Where(x => x.Status == true).ToListAsync();
-            return data;
+            foreach (var item in data)
+            {
+                var role = dbContext.Roles.FirstOrDefault(x => x.RoleId == item.RoleId).Role;
+                UserResponseModel userResponseModels = new UserResponseModel()
+                {
+                    UserId = item.UserId,
+                    FirstName = item.FirstName,
+                    LastName = item.LastName,
+                    Email = item.Email,
+                    Address = item.Address,
+                    Role = role,
+                    Status = item.Status
+                };
+                userResponseModel.Add(userResponseModels);
+            }
+            return userResponseModel;
         }
 
-        public async Task<Registration> GetUser(int UserId)
+        public async Task<UserResponseModel> GetUser(int UserId)
         {
+            UserResponseModel userResponseModel = new UserResponseModel();
             var data = await dbContext.Registration.Where(x => x.UserId == UserId).FirstOrDefaultAsync();
-
-            return data;
+            var role = await dbContext.Roles.Where(x => x.RoleId == data.RoleId).FirstOrDefaultAsync();
+            if (data != null)
+            {
+                userResponseModel.UserId = data.UserId;
+                userResponseModel.FirstName = data.FirstName;
+                userResponseModel.LastName = data.LastName;
+                userResponseModel.Email = data.Email;
+                userResponseModel.Address = data.Address;
+                userResponseModel.Role = role.Role;
+                userResponseModel.Status = data.Status;
+            }
+            return userResponseModel;
         }
 
 

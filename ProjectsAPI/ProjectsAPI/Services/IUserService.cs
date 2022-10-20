@@ -10,7 +10,7 @@ namespace ProjectsAPI.Services
         Task<ResponseModel> Register(RegisterModel registerModel, string role);
         Task<ResponseModel> UpdateUser(int userId, UserDto userDto);
         Task<ResponseModel> DeleteUser(int userId);
-        Task<IEnumerable<Registration>> GetUser();
-        Task<Registration> GetUser(int UserId);
+        Task<IEnumerable<UserResponseModel>> GetUser();
+        Task<UserResponseModel> GetUser(int UserId);
     }
 }
