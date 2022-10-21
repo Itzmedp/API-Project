@@ -28,7 +28,6 @@ export class AccountService {
     login(username, password) {
         return this.http.post<User>(`${environment.apiUrl}/User/Login`, { username, password })
             .pipe(map(user => {
-                // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('user', JSON.stringify(user));
                 this.userSubject.next(user);
                 return user;
@@ -36,7 +35,7 @@ export class AccountService {
     }
 
     logout() {
-        // remove user from local storage and set current user to null
+
         localStorage.removeItem('user');
         this.userSubject.next(null);
         this.router.navigate(['/account/login']);
@@ -46,10 +45,7 @@ export class AccountService {
     //     return this.http.post(`${environment.apiUrl}/User/Register`, user);
     // }
 
-    register(addUserRequest : User) : Observable<User> {
-
-        // addEmployeeRequest.userId = '00000000-0000-0000-0000-000000000000'
-    
+    register(addUserRequest : User) : Observable<User> {    
         return this.http.post<User>(this.baseApiUrl + '/User/Register', addUserRequest);
     
       }
@@ -63,8 +59,8 @@ export class AccountService {
     }
 
     update(userId, params) {
-        return this.http.put(`${environment.apiUrl}/User/UpdateUser/+${userId}`, params)
-            .pipe(map(x => {
+        return this.http.put(`${environment.apiUrl}/User/UpdateUser?userId=${userId}`, params)
+        .pipe(map(x => {
 
                 if (userId == this.userValue.userId) {
 
@@ -74,11 +70,14 @@ export class AccountService {
                     this.userSubject.next(user);
                 }
                 return x;
+                
             }));
     }
 
+
+
     delete(userId: string) {
-        return this.http.delete(`${environment.apiUrl}/User/DeleteUser?+${userId}`)
+        return this.http.delete(`${environment.apiUrl}/User/DeleteUser?UserId=${userId}`)
             .pipe(map(x => {
 
                 if (userId == this.userValue.userId) {

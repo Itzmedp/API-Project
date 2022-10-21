@@ -28,7 +28,12 @@ export class RegisterComponent implements OnInit {
     
       Message : string ="";
     
-      constructor(private accountService : AccountService, private router: Router,private formBuilder: FormBuilder,) { }
+      constructor(
+        private accountService : AccountService,
+         private router: Router,
+         private formBuilder: FormBuilder,
+         private alertService: AlertService,
+         ) { }
     
     
     
@@ -56,15 +61,15 @@ export class RegisterComponent implements OnInit {
         .subscribe({
     
          next: (User) => {
-    
+          this.alertService.success('Registered successfully', { keepAfterRouteChange: true });
           this.router.navigate(['User']);
     
          }
     
         });
     
-        (error: any) => {    
-    
+        (error: any) => {
+          this.alertService.error(error);    
           this.errorMessage = error.message;    
     
         }

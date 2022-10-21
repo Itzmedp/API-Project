@@ -125,7 +125,7 @@ namespace ProjectsAPI.Controllers
 
         }
 
-        [HttpPost]
+        [HttpPut]
         [Route("[controller]/[action]")]
         public async Task<ActionResult> UpdateUser(int UserId, UserDto userDto)
         {

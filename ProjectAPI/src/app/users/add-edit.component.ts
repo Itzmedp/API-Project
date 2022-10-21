@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
 import { AccountService, AlertService } from '@app/_services';
+import { User } from '@app/_models';
 
 @Component({ templateUrl: 'add-edit.component.html' })
 export class AddEditComponent implements OnInit {
@@ -12,6 +13,17 @@ export class AddEditComponent implements OnInit {
     isAddMode: boolean;
     loading = false;
     submitted = false;
+
+    deleteRequest: User = {
+        firstName: '',
+        lastName: '',
+        email: '',
+        address: '',
+        role: '',
+        status: true,
+        password: '',
+        userId: ''
+    };
 
     constructor(
         private formBuilder: FormBuilder,
@@ -25,7 +37,6 @@ export class AddEditComponent implements OnInit {
         this.id = this.route.snapshot.params['id'];
         this.isAddMode = !this.id;
         
-        // password not required in edit mode
         const passwordValidators = [Validators.minLength(6)];
         if (this.isAddMode) {
             passwordValidators.push(Validators.required);
@@ -34,7 +45,9 @@ export class AddEditComponent implements OnInit {
         this.form = this.formBuilder.group({
             firstName: ['', Validators.required],
             lastName: ['', Validators.required],
-            username: ['', Validators.required],
+            email : ['',Validators.required],
+            address: ['', Validators.required],
+            role :['',Validators.required],
             password: ['', passwordValidators]
         });
 
@@ -45,16 +58,13 @@ export class AddEditComponent implements OnInit {
         }
     }
 
-    // convenience getter for easy access to form fields
     get f() { return this.form.controls; }
 
     onSubmit() {
         this.submitted = true;
 
-        // reset alerts on submit
         this.alertService.clear();
 
-        // stop here if form is invalid
         if (this.form.invalid) {
             return;
         }
@@ -69,7 +79,6 @@ export class AddEditComponent implements OnInit {
 
     private createUser() {
         this.accountService.register(this.form.value)
-            .pipe(first())
             .subscribe({
                 next: () => {
                     this.alertService.success('User added successfully', { keepAfterRouteChange: true });
@@ -84,7 +93,6 @@ export class AddEditComponent implements OnInit {
 
     private updateUser() {
         this.accountService.update(this.id, this.form.value)
-            .pipe(first())
             .subscribe({
                 next: () => {
                     this.alertService.success('Update successful', { keepAfterRouteChange: true });
@@ -95,5 +103,6 @@ export class AddEditComponent implements OnInit {
                     this.loading = false;
                 }
             });
+
     }
 }

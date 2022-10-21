@@ -1,13 +1,18 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
 
-import { AccountService } from '@app/_services';
+import { AccountService, AlertService } from '@app/_services';
+import { Router } from '@angular/router';
 
 @Component({ templateUrl: 'list.component.html' })
 export class ListComponent implements OnInit {
     users = null;
 
-    constructor(private accountService: AccountService) {}
+    constructor(
+        private accountService: AccountService,
+        private alertService: AlertService,
+        private router: Router,
+        ) {}
 
     ngOnInit() {
         this.accountService.getAll()
@@ -15,11 +20,13 @@ export class ListComponent implements OnInit {
             .subscribe(users => this.users = users);
     }
 
-    deleteUser(id: string) {
-        const user = this.users.find(x => x.id === id);
-        user.isDeleting = true;
-        this.accountService.delete(id)
+    deleteUser(userId: string) {
+        const user = this.users.find(x => x.id === userId);
+        this.accountService.delete(userId)
             .pipe(first())
-            .subscribe(() => this.users = this.users.filter(x => x.id !== id));
+            .subscribe(() => {
+                this.alertService.success('Deleted successfully', { keepAfterRouteChange: true });
+                this.users = this.users.filter(x => x.id !== userId)});
+                this.router.navigate(['list']);
     }
 }
