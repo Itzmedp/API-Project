@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
 import { AccountService, AlertService } from '@app/_services';
-import { User } from '@app/_models';
+import { Edit, User } from '@app/_models';
 
 @Component({ templateUrl: 'add-edit.component.html' })
 export class AddEditComponent implements OnInit {
@@ -43,6 +43,7 @@ export class AddEditComponent implements OnInit {
         }
 
         this.form = this.formBuilder.group({
+            userId :['', Validators.required],
             firstName: ['', Validators.required],
             lastName: ['', Validators.required],
             email : ['',Validators.required],
@@ -91,18 +92,36 @@ export class AddEditComponent implements OnInit {
             });
     }
 
-    private updateUser() {
-        this.accountService.update(this.id, this.form.value)
-            .subscribe({
-                next: () => {
-                    this.alertService.success('Update successful', { keepAfterRouteChange: true });
-                    this.router.navigate(['../../'], { relativeTo: this.route });
-                },
-                error: error => {
-                    this.alertService.error(error);
-                    this.loading = false;
-                }
-            });
+    // private updateUser() {
+    //     this.accountService.update(this.deleteRequest.userId, this.form.value)
+    //         .subscribe({
+    //             next: () => {
+    //                 this.alertService.success('Update successfully', { keepAfterRouteChange: true });
+    //                 this.router.navigate(['../../'], { relativeTo: this.route });
+    //             },
+    //             error: error => {
+    //                 this.alertService.error(error);
+    //                 this.loading = false;
+    //             }
+    //         });
 
-    }
+    // }
+
+    updateUser(){
+
+        this.accountService.update(this.deleteRequest.userId, this.deleteRequest)
+      
+        .subscribe({
+      
+            next: (response) => {
+      
+              this.router.navigate(['../']);
+      
+            }
+      
+        });
+      
+      
+      
+       }
 }

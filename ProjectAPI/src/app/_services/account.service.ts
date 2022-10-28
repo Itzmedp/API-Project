@@ -55,7 +55,7 @@ export class AccountService {
     }
 
     getById(userId: string) {
-        return this.http.get<User>(`${environment.apiUrl}/User/GetByIdUser+${userId}`);
+        return this.http.get<User>(`${environment.apiUrl}/User/GetByIdUser?UserId=${userId}`);
     }
 
     update(userId, params) {
