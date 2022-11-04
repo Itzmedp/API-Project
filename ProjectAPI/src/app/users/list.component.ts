@@ -1,6 +1,5 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
-
 import { AccountService, AlertService } from '@app/_services';
 import { Router } from '@angular/router';
 
@@ -17,7 +16,7 @@ export class ListComponent implements OnInit {
     ngOnInit() {
         this.accountService.getAll()
             .pipe(first())
-            .subscribe(users => this.users = users);
+            .subscribe(users => this.users = users);            
     }
 
     deleteUser(userId: string) {
@@ -28,5 +27,14 @@ export class ListComponent implements OnInit {
                 this.alertService.success('Deleted successfully', { keepAfterRouteChange: true });
                 this.users = this.users.filter(x => x.id !== userId)});
                 this.router.navigate(['list']);
+    }
+
+    isDisabled(): boolean {
+        var userRole = localStorage.getItem(`role`);
+        if (userRole == 'Admin') {
+        return true;
+        } else {
+        return false;
+        }
     }
 }

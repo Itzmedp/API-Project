@@ -30,10 +30,10 @@ export class RegisterComponent implements OnInit {
     
       constructor(
         private accountService : AccountService,
-         private router: Router,
-         private formBuilder: FormBuilder,
-         private alertService: AlertService,
-         ) { }
+        private router: Router,
+        private formBuilder: FormBuilder,
+        private alertService: AlertService,
+        ) { }
     
     
     
@@ -48,7 +48,7 @@ export class RegisterComponent implements OnInit {
             password: ['', Validators.required]
         });
     
-       
+      
     
       }
 
@@ -60,22 +60,19 @@ export class RegisterComponent implements OnInit {
     
         .subscribe({
     
-         next: (User) => {
-          this.alertService.success('Registered successfully', { keepAfterRouteChange: true });
+        next: (User) => {
           this.router.navigate(['User']);
+          this.alertService.success('Registered successfully', { keepAfterRouteChange: true });
     
-         }
+        }
     
         });
     
         (error: any) => {
-          this.alertService.error(error);    
           this.errorMessage = error.message;    
+          this.alertService.error(error.message);    
     
         }
-    
-       
-    
       }
     
 }

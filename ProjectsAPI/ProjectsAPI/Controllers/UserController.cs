@@ -211,7 +211,7 @@ namespace ProjectsAPI.Controllers
         }
 
         [HttpGet]
-        [Route("[controller]/[action]/id")]
+        [Route("[controller]/[action]")]
         public async Task<ActionResult<Registration>> GetByIdUser(int UserId)
         {
             var data = await userService.GetUser(UserId);

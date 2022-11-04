@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
 import { environment } from '@environments/environment';
 import { User } from '@app/_models';
 import { formatCurrency } from '@angular/common';
@@ -48,7 +47,7 @@ export class AccountService {
     register(addUserRequest : User) : Observable<User> {    
         return this.http.post<User>(this.baseApiUrl + '/User/Register', addUserRequest);
     
-      }
+    }
 
     getAll() {
         return this.http.get<User[]>(`${environment.apiUrl}/User/GetUser`);

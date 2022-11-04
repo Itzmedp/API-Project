@@ -44,9 +44,10 @@ export class LoginComponent implements OnInit {
                 next: () => {
                     const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
                     this.router.navigateByUrl(returnUrl);
+                    this.alertService.success("Login Successfully")
                 },
                 error: error => {
-                    this.alertService.error(error);
+                    this.alertService.error(error.message);
                     this.loading = false;
                 }
             });

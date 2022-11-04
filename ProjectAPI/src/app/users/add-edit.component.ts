@@ -82,11 +82,11 @@ export class AddEditComponent implements OnInit {
         this.accountService.register(this.form.value)
             .subscribe({
                 next: () => {
-                    this.alertService.success('User added successfully', { keepAfterRouteChange: true });
                     this.router.navigate(['../'], { relativeTo: this.route });
+                    this.alertService.success('User added successfully', { keepAfterRouteChange: true });
                 },
                 error: error => {
-                    this.alertService.error(error);
+                    this.alertService.error(error.message);
                     this.loading = false;
                 }
             });
@@ -110,18 +110,22 @@ export class AddEditComponent implements OnInit {
     updateUser(){
 
         this.accountService.update(this.deleteRequest.userId, this.deleteRequest)
-      
         .subscribe({
-      
+    
             next: (response) => {
-      
-              this.router.navigate(['../']);
-      
+    
+            this.router.navigate(['../']);
+            this.alertService.success('Updated successfully', { keepAfterRouteChange: true })
+    
+            },
+            error : error =>{
+                this.alertService.error(error.message);
+                    
             }
-      
+    
         });
-      
-      
-      
-       }
+    
+    
+    
+    }
 }
